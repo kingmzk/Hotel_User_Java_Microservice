@@ -3,6 +3,7 @@ package com.lcwd.user.service.impl;
 import com.lcwd.user.service.entities.Hotel;
 import com.lcwd.user.service.entities.Rating;
 import com.lcwd.user.service.entities.User;
+import com.lcwd.user.service.external.service.HoterlService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class UserServiceimpl implements UserService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private HoterlService hoterlService;
 
     private Logger logger = LoggerFactory.getLogger(UserServiceimpl.class);
     @Override
@@ -70,10 +74,12 @@ public class UserServiceimpl implements UserService {
        List<Rating> ratings =  Arrays.stream(ratingsOfUser).toList();
 
        List<Rating> ratingList = ratings.stream().map(rating -> {
-          ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotels/" + rating.getHotelId(), Hotel.class);
-          Hotel hotel = forEntity.getBody();
+//          ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotels/" + rating.getHotelId(), Hotel.class);
+//          Hotel hotel = forEntity.getBody();
 
-          logger.info("response status code: {}", forEntity.getStatusCode());
+           Hotel hotel = hoterlService.getHotel(rating.getHotelId());
+
+//          logger.info("response status code: {}", forEntity.getStatusCode());
 
           rating.setHotel(hotel);
 
