@@ -1,3 +1,8 @@
+spring:
+  application:
+         name: Cofig-Default
+
+
 eureka:
   instance:
     prefer-ip-address: true
