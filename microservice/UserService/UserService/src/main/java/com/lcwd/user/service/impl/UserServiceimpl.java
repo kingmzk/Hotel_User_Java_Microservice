@@ -51,7 +51,7 @@ public class UserServiceimpl implements UserService {
         // For each user, fetch their ratings from the Rating service
         for (User user : users) {
             ArrayList<Rating> ratingsOfUser = restTemplate.getForObject(
-                    "http://localhost:8084/ratings/users/" + user.getUserId(), ArrayList.class);
+                    "http://RATING-SERVICE/ratings/users/" + user.getUserId(), ArrayList.class);
 
             logger.info("{} " + ratingsOfUser);
 

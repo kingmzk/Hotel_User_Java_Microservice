@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.lcwd.user.service.entities.Rating;
 import org.springframework.web.bind.annotation.PutMapping;
 
-@FeignClient
+@FeignClient(name="RATING-SERVICE")
 @Service
 public interface RatingService {
     //get
