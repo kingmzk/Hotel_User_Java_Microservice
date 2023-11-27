@@ -62,6 +62,7 @@ public class UserServiceimpl implements UserService {
 
     }
 
+
     @Override
     public User getUserById(String userId) {
         //get user from database with the help of user repository

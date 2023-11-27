@@ -34,3 +34,49 @@ spring:
 #    register-with-eureka: true
 #    service-url:
 #      defaultZone: http://localhost:8761/eureka
+
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+  endpoint:
+    health:
+      show-details: always
+
+
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingHotelBreaker:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-Duration-In-Open-State: 6s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+
+
+retry:
+  instances:
+    ratingHotelService:
+      maximum-attempts: 3
+      wait-duration: 5s
+
+
+ratelimiter:
+  instrances:
+    userRateLimiter:
+      limit-refresh-period: 4s
+      limit-for-period: 2
+      timeout-duration: 0s
